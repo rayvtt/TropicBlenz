@@ -1,29 +1,49 @@
 # TropicBlenz
 
-Landing page prototype for **TropicBlendz** — tropical fruit and frozen fruit blends.
-Creative direction: Tropical Modernism, built around appetite and desire.
+Front-end storefront **prototype** for **Tropic Theory**, a frozen tropical fruit brand. Brand line: *Better Blends Begin Here.*
+Creative direction: Tropical Modernism built around desire, with the packaging as the hero. Launch focus: frozen red dragon fruit.
+
+This is a static, clickable prototype for review. It is not a working shop: there is no real checkout, no payments, no accounts, no backend and no data collection.
 
 ## Live preview
 
 **Live:** https://rayvtt.github.io/TropicBlenz/
 
-Deployed by GitHub Actions on every push to `main`. Checked on 2026-10-13: page, CSS, JS and images all load.
+Deployed by GitHub Actions on every push to `main` (see `.github/workflows/pages.yml`, which copies every top-level `*.html`, `.nojekyll` and `assets/`).
 
-## What's here
+## Pages
 
-A static site with no build step and no dependencies:
+| Page | What it shows |
+| --- | --- |
+| `index.html` | Packaging-led hero ("Tropical fruit. At its most irresistible.", Shop the range), proposed range, red dragon fruit launch spotlight (pack front and back), formats, Vietnam story (copy to be confirmed), serving inspiration, demo newsletter signup, footer |
+| `shop.html` | Catalogue of every fruit and format with a pack visual, sample price and quick add. Filter by fruit or format (`shop.html?fruit=mango&format=tub-1kg` deep-links) |
+| `product.html?id=<slug>` | Data-driven product page: gallery (front, back and other formats), format selector with live price, quantity stepper, add to cart, accordions (serving idea, ingredients, storage, origin, packaging) and related products. Optional `&format=<id>`. Unknown ids show a not-found state. Slugs: `red-dragon-fruit`, `mango`, `passion-fruit`, `pineapple`, `lychee`, `longan`, `jackfruit`, `soursop` |
+| `cart.html` | Full cart: change quantity, remove, line totals, subtotal and an empty state |
+| `checkout.html` | Demo checkout: contact, delivery, payment (disabled mock card field), review and a demo confirmation that clears the cart |
+
+A slide-in cart drawer is on every page, opened from the header cart button. It has a live count, closes with Escape, traps focus while open and returns focus when closed. Cart changes are announced through an `aria-live` region.
+
+## Structure
 
 ```
-index.html              page markup (header, hero, range, frozen blends, origin, recipes, enquiry, footer)
-assets/css/styles.css   design tokens (palette, type) and all component styles
-assets/js/main.js       mobile nav toggle, prototype enquiry form (sends nothing)
-assets/img/             illustrative stock photography (Unsplash) and favicon
-.github/workflows/pages.yml   GitHub Pages deployment
+index.html shop.html product.html cart.html checkout.html
+assets/css/styles.css      design tokens (palette, type) and all component styles
+assets/js/products.js      shared catalogue: fruits, formats, sample prices, copy, money formatting
+assets/js/packs.js         packaging concept renderer: TT.packs.render(fruit, format, 'front'|'back') returns inline SVG
+assets/js/cart.js          cart store (localStorage), drawer, header count and live announcements
+assets/js/main.js          mobile nav, demo newsletter, homepage range, shared product card
+assets/js/shop.js          shop grid and filters
+assets/js/product.js       product detail page and not-found state
+assets/js/cart-page.js     full cart page
+assets/js/checkout.js      demo checkout flow
+assets/img/                illustrative stock photography (Unsplash) and favicon
 ```
 
-All asset paths are relative, so the site works at a sub-path (`/TropicBlenz/`) now and on a custom domain later.
+All paths are relative, so the site works under the `/TropicBlenz/` sub-path and on a custom domain later. There is no build step and no runtime dependencies. Fonts (Fraunces and Manrope) load from Google Fonts.
 
-## Local preview
+Money is handled as integer minor units (cents) and shown as `$12.90` with a "Sample price" label. The cart stores only `{ sku, qty }` in `localStorage` (key `tropic-theory-cart-v1`). Every read and write is wrapped in try/catch, and prices are always looked up from `products.js`.
+
+## Run locally
 
 ```bash
 npx http-server -p 8080 .
@@ -33,32 +53,24 @@ python3 -m http.server 8080
 
 Then open http://localhost:8080.
 
-## Deployment (GitHub Pages, free)
+## Prototype boundaries
 
-`.github/workflows/pages.yml` publishes the site whenever `main` is pushed, and can also be started by hand from the Actions tab.
+- **No real checkout or payments.** The checkout form has no `action`, every submit is prevented, and the payment step shows a disabled mock card field instead of real card inputs. A prominent banner says "Demo checkout: nothing is charged or sent".
+- **No data collection.** Checkout details live only in the page while you use it. They are never written to storage and are cleared on confirmation. The newsletter form sends and stores nothing.
+- **Only the cart persists**, in the visitor's own browser.
+- **No accounts.**
 
-One-time setup by the repository owner:
+## Placeholders and concepts
 
-1. Merge the prototype branch into `main`.
-2. Go to **Settings → Pages**.
-3. Under **Build and deployment → Source**, choose **GitHub Actions**.
-4. Open **Actions → Deploy to GitHub Pages → Run workflow** (or push to `main`).
-5. When the run finishes, the site is at https://rayvtt.github.io/TropicBlenz/.
+- **Packaging** is a concept system drawn as SVG in `assets/js/packs.js`. One design language covers every pack (flat fruit-colour field, letterspaced wordmark, line-drawn fruit motif, italic Fraunces fruit name), with distinct silhouettes for the 500 g stand-up pouch (zip line, tear notches), the 5 × 100 g sachet strip, the 1 kg gusseted food-service bag and the 1 kg scoop tub. Back views carry placeholder panels marked "Concept: copy TBC" and "Barcode TBC". The site labels all of it "Packaging concept". It is not final artwork.
+- **Range**: red dragon fruit (launch focus), mango, passion fruit, pineapple, lychee, longan, jackfruit and soursop. Which formats each fruit comes in is a proposal.
+- **Prices** are sample prices for the demo, and so are the delivery options ($6.90 standard, $14.90 express). No currency or market is implied.
+- **Product copy** (taglines, descriptions, serving ideas) is provisional. Ingredients, storage guidance, origin details and final packaging copy are marked "To be confirmed".
+- **Origin**: says only that the brand looks to Vietnam. No regions, growers, processing, certification, organic, nutrition or availability claims are made, and the homepage story keeps its "Copy to be confirmed" note.
+- **Photography** is illustrative stock from Unsplash (Unsplash License), captioned "Illustrative photography, not Tropic Theory product". Replace it with commissioned photography.
+- **Serving ideas** are short suggestions, not tested recipes.
+- **Palette** (Mango #F5A623, Guava #F06F68, Leaf #286747, Coconut #F8F4EA, Deep Ink #20231F, Dragon Fruit #D93672) is provisional. The extra pack colours per fruit are set in `products.js`.
 
-A custom domain can be added later under **Settings → Pages → Custom domain**. No DNS changes have been made.
+## Deployment (GitHub Pages)
 
-## Checks
-
-- `npx html-validate@8 index.html`: passes with no errors.
-- Playwright (Chromium) at 390px, 768px and 1440px: no horizontal overflow, no console errors and no failed requests. Keyboard focus starts on the skip link. The mobile menu opens, and Escape closes it. Form validation messages appear. Every image has alt text, and the page has one `h1`.
-
-## Placeholders and assumptions
-
-- **Photography** is illustrative stock from Unsplash (Unsplash License). It does **not** show TropicBlendz products, and the page says so in the top bar, in the image captions and in the footer. Replace it with commissioned product photography.
-- **Fruit range** (mango, dragon fruit, passion fruit, pineapple) is indicative only.
-- **Frozen blend names** (Golden Hour, Pink Current, Guava Glow), their fruit mixes, formats and pack sizes are placeholders.
-- **Origin / Vietnam story**: only says the brand looks to Vietnam. No suppliers, regions, farming, certification, processing or nutrition claims are made. The section is marked "Copy to be confirmed".
-- **Recipes** are short serving ideas, not tested recipes.
-- **Enquiry form** is a front-end prototype. Nothing is sent or stored. It needs a real destination (email or form service) before launch.
-- **Palette** (Mango #F5A623, Guava #F06F68, Leaf #286747, Coconut #F8F4EA, Deep Ink #20231F, Dragon Fruit #D93672) is provisional, as briefed.
-- Fonts: Fraunces and Manrope via Google Fonts.
+`.github/workflows/pages.yml` publishes the site whenever `main` is pushed, and can also be run by hand from the Actions tab. Pages must be set to **Settings → Pages → Source: GitHub Actions**.
