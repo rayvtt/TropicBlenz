@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo checkout | Tropic Theory</title>
+  <meta name="description" content="A demonstration of the Tropic Theory checkout flow. Nothing is charged, sent or stored.">
+  <meta name="theme-color" content="#20231F">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Demo checkout | Tropic Theory">
+  <meta property="og:description" content="A demonstration of the Tropic Theory checkout flow. Nothing is charged, sent or stored.">
+  <meta property="og:image" content="assets/img/hero-dragon-fruit.jpg">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="prototype-bar" role="note">
+    Prototype preview. Packaging is concept artwork, prices are samples and nothing is sold.
+  </div>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="Tropic Theory home">Tropic <span>Theory</span></a>
+      <nav id="site-nav" class="site-nav" aria-label="Primary" data-nav>
+        <ul>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html#range">Range</a></li>
+          <li><a href="index.html#formats">Formats</a></li>
+          <li><a href="index.html#story">Story</a></li>
+          <li><a href="index.html#recipes">Recipes</a></li>
+        </ul>
+      </nav>
+      <div class="site-header__tools">
+        <a class="cart-btn" href="cart.html" data-cart-open aria-label="Cart, 0 items">Cart <span class="cart-btn__count" data-cart-count>0</span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span class="nav-toggle__label">Menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="demo-banner" role="note">
+      <div class="wrap"><strong>Demo checkout: nothing is charged or sent.</strong> What you type stays on this page and is cleared when you finish.</div>
+    </div>
+
+    <section class="page-head page-head--slim" aria-labelledby="page-title">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><span aria-current="page">Checkout</span></li>
+          </ol>
+        </nav>
+        <h1 id="page-title" class="page-title" tabindex="-1">Checkout</h1>
+      </div>
+    </section>
+
+    <div class="wrap checkout" data-checkout hidden>
+      <div class="checkout__main">
+        <h2 class="visually-hidden">Checkout progress</h2>
+        <ol class="steps">
+          <li class="steps__item" data-step-tab="contact"><span class="steps__num">1</span> Contact</li>
+          <li class="steps__item" data-step-tab="delivery"><span class="steps__num">2</span> Delivery</li>
+          <li class="steps__item" data-step-tab="payment"><span class="steps__num">3</span> Payment</li>
+          <li class="steps__item" data-step-tab="review"><span class="steps__num">4</span> Review</li>
+        </ol>
+
+        <form class="checkout__form" data-checkout-form novalidate>
+          <fieldset class="step" data-step="contact">
+            <legend class="step__title">Contact</legend>
+            <div class="field">
+              <label for="c-email">Email</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required aria-describedby="c-email-err">
+              <p class="field__error" id="c-email-err" data-error-for="c-email"></p>
+            </div>
+            <div class="field">
+              <label for="c-phone">Phone <span class="optional">(optional)</span></label>
+              <input id="c-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+            <div class="step__nav">
+              <button class="btn btn--ink" type="button" data-next>Continue to delivery</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="delivery" hidden>
+            <legend class="step__title">Delivery</legend>
+            <div class="field-grid">
+              <div class="field">
+                <label for="d-first">First name</label>
+                <input id="d-first" name="first" type="text" autocomplete="given-name" required aria-describedby="d-first-err">
+                <p class="field__error" id="d-first-err" data-error-for="d-first"></p>
+              </div>
+              <div class="field">
+                <label for="d-last">Last name</label>
+                <input id="d-last" name="last" type="text" autocomplete="family-name" required aria-describedby="d-last-err">
+                <p class="field__error" id="d-last-err" data-error-for="d-last"></p>
+              </div>
+              <div class="field field--full">
+                <label for="d-address">Address</label>
+                <input id="d-address" name="address" type="text" autocomplete="address-line1" required aria-describedby="d-address-err">
+                <p class="field__error" id="d-address-err" data-error-for="d-address"></p>
+              </div>
+              <div class="field">
+                <label for="d-city">City</label>
+                <input id="d-city" name="city" type="text" autocomplete="address-level2" required aria-describedby="d-city-err">
+                <p class="field__error" id="d-city-err" data-error-for="d-city"></p>
+              </div>
+              <div class="field">
+                <label for="d-postcode">Postcode</label>
+                <input id="d-postcode" name="postcode" type="text" autocomplete="postal-code" required aria-describedby="d-postcode-err">
+                <p class="field__error" id="d-postcode-err" data-error-for="d-postcode"></p>
+              </div>
+            </div>
+            <fieldset class="choice-group">
+              <legend class="choice-group__legend">Delivery option <span class="sample">Sample options</span></legend>
+              <label class="choice">
+                <input type="radio" name="delivery" value="standard" checked>
+                <span class="choice__text"><span class="choice__name">Standard delivery</span><span class="choice__note">Sample option for the demo</span></span>
+                <span class="choice__price">$6.90</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="delivery" value="express">
+                <span class="choice__text"><span class="choice__name">Express delivery</span><span class="choice__note">Sample option for the demo</span></span>
+                <span class="choice__price">$14.90</span>
+              </label>
+            </fieldset>
+            <div class="step__nav">
+              <button class="btn btn--ghost-ink" type="button" data-back>Back</button>
+              <button class="btn btn--ink" type="button" data-next>Continue to payment</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="payment" hidden>
+            <legend class="step__title">Payment</legend>
+            <div class="mock-card">
+              <div class="field">
+                <label for="p-card">Card details</label>
+                <input id="p-card" type="text" value="Card entry is switched off in this demo" disabled aria-describedby="p-note">
+              </div>
+              <p class="mock-card__note" id="p-note">No payment details are collected here. In a live store, a payment provider's secure card field would sit in this space.</p>
+            </div>
+            <div class="step__nav">
+              <button class="btn btn--ghost-ink" type="button" data-back>Back</button>
+              <button class="btn btn--ink" type="button" data-next>Review order</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="step" data-step="review" hidden>
+            <legend class="step__title">Review</legend>
+            <div class="review" data-review></div>
+            <div class="step__nav">
+              <button class="btn btn--ghost-ink" type="button" data-back>Back</button>
+              <button class="btn btn--ink" type="submit">Place demo order</button>
+            </div>
+            <p class="fine">Placing a demo order charges nothing and sends nothing. It clears your cart.</p>
+          </fieldset>
+        </form>
+      </div>
+
+      <aside class="summary summary--checkout" aria-labelledby="co-summary-title">
+        <h2 id="co-summary-title" class="summary__title">Order summary</h2>
+        <ul class="mini-lines" data-co-lines></ul>
+        <div class="summary-row"><span>Subtotal</span><span data-co-subtotal>$0.00</span></div>
+        <div class="summary-row"><span>Delivery <span class="sample">Sample</span></span><span data-co-delivery>$0.00</span></div>
+        <div class="summary-row summary-row--total"><span>Total</span><span data-co-total>$0.00</span></div>
+        <p class="fine">Sample prices. Demo only, nothing is charged.</p>
+      </aside>
+    </div>
+
+    <div class="wrap" data-checkout-empty hidden></div>
+    <div class="wrap" data-confirmation hidden></div>
+    <noscript><div class="wrap"><p class="empty">The demo checkout needs JavaScript.</p></div></noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__grid">
+      <div>
+        <a class="wordmark wordmark--light" href="index.html">Tropic <span>Theory</span></a>
+        <p class="site-footer__tag">Better Blends Begin Here.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="site-footer__links">
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="product.html?id=red-dragon-fruit">Red dragon fruit</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="checkout.html">Checkout (demo)</a></li>
+          <li><a href="index.html#story">Story</a></li>
+          <li><a href="index.html#recipes">Recipes</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__small">
+        Prototype preview. Packaging shown is concept artwork. Prices are sample prices: nothing is sold, charged or sent.
+        Product details, range and copy are provisional. Photography is illustrative stock from Unsplash (Unsplash License), not Tropic Theory product.
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/products.js" defer></script>
+  <script src="assets/js/packs.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/checkout.js" defer></script>
+</body>
+</html>
