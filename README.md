@@ -5,9 +5,9 @@ Creative direction: Tropical Modernism, built around appetite and desire.
 
 ## Live preview
 
-**Planned URL:** https://rayvtt.github.io/TropicBlenz/
+**Live:** https://rayvtt.github.io/TropicBlenz/
 
-Status: **not live yet.** GitHub Pages has to be switched on once in the repository settings (see *Deployment*). This README will be updated when the URL has been checked and loads.
+Deployed by GitHub Actions on every push to `main`. Checked on 2026-10-13: page, CSS, JS and images all load.
 
 ## What's here
 
