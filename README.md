@@ -11,6 +11,28 @@ This is a static, clickable prototype for review. It is not a working shop: ther
 
 Deployed by GitHub Actions on every push to `main` (see `.github/workflows/pages.yml`, which copies every top-level `*.html`, `.nojekyll` and `assets/`).
 
+## New range landing page (bilingual VI/EN)
+
+**Live:** https://rayvtt.github.io/TropicBlenz/range.html (English) · https://rayvtt.github.io/TropicBlenz/range-vi.html (Tiếng Việt)
+
+A landing page for the proposed TropicBlenz frozen fruit range: five single fruits (red dragon fruit, aloe vera cubes, seedless soursop, tangy ripe mango, papaya) and three blend concepts (Pink Tropics, Golden Tropics, Island Reset). Sections: hero, range (single fruits vs mixed blends), integrity and transparency, farmers and community commitments, Vietnamese fruit wisdom (cultural context with a cited source and a "not medical advice" note), serving ideas, brand story, FAQ, demo enquiry form and footer. The header has an EN/VI switch that keeps the reader on the same section. The storefront homepage links to it from the nav and footer.
+
+Each language is a real static page with its own `lang`, title, description, canonical and `hreflang` links, so both are indexable and work without JavaScript. Both are **generated** from one source:
+
+```
+scripts/range/content.mjs   all copy (EN + VI), fruit and blend data, brand name. Edit this.
+scripts/build-range.mjs     renders range.html and range-vi.html
+assets/css/range.css        page styles (on top of styles.css tokens and components)
+assets/js/range.js          mobile nav, language links, demo enquiry form
+```
+
+```bash
+node scripts/build-range.mjs          # regenerate both pages after editing content.mjs
+node scripts/build-range.mjs --check  # fails if the committed pages are out of date
+```
+
+Blend names and combinations are concepts and live in `blends` in `content.mjs`. Fruit cards use labelled colour fields ("Photography to come") until real product photography exists. The enquiry form sends and stores nothing.
+
 ## Pages
 
 | Page | What it shows |
@@ -19,6 +41,7 @@ Deployed by GitHub Actions on every push to `main` (see `.github/workflows/pages
 | `shop.html` | Catalogue of every fruit and format with a pack visual, sample price and quick add. Filter by fruit or format (`shop.html?fruit=mango&format=tub-1kg` deep-links) |
 | `product.html?id=<slug>` | Data-driven product page: gallery (front, back and other formats), format selector with live price, quantity stepper, add to cart, accordions (serving idea, ingredients, storage, origin, packaging) and related products. Optional `&format=<id>`. Unknown ids show a not-found state. Slugs: `red-dragon-fruit`, `mango`, `passion-fruit`, `pineapple`, `lychee`, `longan`, `jackfruit`, `soursop` |
 | `cart.html` | Full cart: change quantity, remove, line totals, subtotal and an empty state |
+| `range.html`, `range-vi.html` | Bilingual range landing page (see above) |
 | `checkout.html` | Demo checkout: contact, delivery, payment (disabled mock card field), review and a demo confirmation that clears the cart |
 
 A slide-in cart drawer is on every page, opened from the header cart button. It has a live count, closes with Escape, traps focus while open and returns focus when closed. Cart changes are announced through an `aria-live` region.
